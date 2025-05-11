@@ -1,0 +1,7 @@
+data/D18-2018.7.24.xlsx
+data/emotional_expression_dict.csv
+data/input.txt
+main
+src/bm.o
+src/hashmap.o
+src/main.o

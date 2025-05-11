@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+   sentiment:
+     build: .
+     container_name: sentiment
+     volumes: 
+      - '.:/workspace/sentiment_estimator'
+     working_dir: '/workspace/sentiment_estimator'
+     stdin_open: true
+     tty: true
