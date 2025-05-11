@@ -3,6 +3,7 @@
 #include <string.h>
 #include "hashmap.h"
 
+// 文字列からハッシュ値を生成
 unsigned long hash(char *str) {
     unsigned long hash = 5381;
     int c;
@@ -12,6 +13,7 @@ unsigned long hash(char *str) {
     return hash;
 }
 
+// ハッシュマップ作成
 HashMap *create_hashmap(int size) {
     HashMap *map = malloc(sizeof(HashMap));
     map->buckets = calloc(size, sizeof(Node *));
@@ -19,6 +21,7 @@ HashMap *create_hashmap(int size) {
     return map;
 }
 
+// ノード作成
 Node *create_node(char *key, int value) {
     Node *node = malloc(sizeof(Node));
     node->key = strdup(key);
@@ -27,6 +30,7 @@ Node *create_node(char *key, int value) {
     return node;
 }
 
+// ハッシュマップにキーと値を挿入
 void insert(HashMap *map, char *key, int value) {
     unsigned long index = hash(key) % map->size;
     Node *new_node = create_node(key, value);
@@ -34,6 +38,7 @@ void insert(HashMap *map, char *key, int value) {
     map->buckets[index] = new_node;
 }
 
+// ハッシュマップからキーを探索し、対応する値を取得
 int search(HashMap *map, char *key) {
     unsigned long index = hash(key) % map->size;
     Node *node = map->buckets[index];
