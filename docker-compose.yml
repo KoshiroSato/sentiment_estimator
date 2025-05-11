@@ -9,3 +9,4 @@ services:
      working_dir: '/workspace/sentiment_estimator'
      stdin_open: true
      tty: true
+     command: python src/preprocessing_sentiment_dict.py

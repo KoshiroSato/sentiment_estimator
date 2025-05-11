@@ -19,8 +19,8 @@ negative_df = label_df[label_df['Emotion'].isin(negative)]
 
 def relabeling(text):
     '''
-    辞書煮付けられたラベルがはマルチラベルのため、ラベル1つ1つにpositiveは+1、negativeは-1でスコアリングし、
-    総和の正負でpositiveかnegativeか判定する
+    辞書に付けられたラベルがマルチラベルのため、ラベル1つ1つにpositiveグループは+1、negativeグループは-1でスコアリングし、
+    総和の正負でそのデータがpositiveかnegativeか2値に判定する
     '''
     score = 0
     for char in list(text):
