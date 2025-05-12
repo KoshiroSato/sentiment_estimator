@@ -14,24 +14,21 @@ negative = [
     '緊張', '妬み', '憎い', '残念', '情けない'
     ]
 
-positive_df = label_df[label_df['Emotion'].isin(positive)]
-negative_df = label_df[label_df['Emotion'].isin(negative)]
+positive_symbols = set(label_df[label_df['Emotion'].isin(positive)]['Symbol(全て全角)'].tolist())
+negative_symbols = set(label_df[label_df['Emotion'].isin(negative)]['Symbol(全て全角)'].tolist())
 
 def relabeling(text):
     '''
-    辞書に付けられたラベルがマルチラベルのため、ラベル1つ1つにpositiveグループは+1、negativeグループは-1でスコアリングし、
-    総和の正負でそのデータがpositiveかnegativeか2値に判定する
+    辞書に付けられたラベルがマルチラベルのため、ラベル1つ1つにpositiveグループは+1、
+    negativeグループは-1でスコアリングし、総和の正負でそのデータがpositiveかnegativeか
+    2値に判定する
     '''
-    score = 0
-    for char in list(text):
-        if char in positive_df['Symbol(全て全角)'].tolist():
-            score += 1
-        elif char in negative_df['Symbol(全て全角)'].tolist():
-            score -= 1
-    if score >= 0:
-        return 1
-    return -1
+    score = sum(
+        (1 if char in positive_symbols else -1 if char in negative_symbols else 0)
+        for char in text
+    )
+    return 1 if score >= 0 else -1
 
-data_df['label'] = data_df['Emotion'].map(relabeling)
+data_df['label'] = data_df['Emotion'].apply(relabeling)
 
 data_df[['Word', 'label']].to_csv('data/emotional_expression_dict.csv', header=False, index=False)
