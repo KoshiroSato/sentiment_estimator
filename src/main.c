@@ -86,7 +86,7 @@ int analyze_sentiment(HashMap *map, const char *filename) {
     return score;
 }
 
-int main() {
+int main(void) {
     HashMap *map = create_hashmap(1978);
     load_dictionary(map, "data/emotional_expression_dict.csv");
 
